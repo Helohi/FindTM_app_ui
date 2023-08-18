@@ -25,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: SearchAppBar(),
-      body: SearchBody(),
+      body: SafeArea(child: SearchBody()),
     );
   }
 }

@@ -20,11 +20,11 @@ final theme = ThemeData(
       ),
       bodyLarge: TextStyle(
         color: Colors.white,
-        fontSize: 30,
+        fontSize: 20,
       ),
       bodySmall: TextStyle(
         color: Colors.white54,
-        fontSize: 15,
+        fontSize: 10,
       ),
     ),
   ),

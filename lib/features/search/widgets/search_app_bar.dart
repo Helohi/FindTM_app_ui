@@ -26,19 +26,23 @@ class _SearchAppBarState extends State<SearchAppBar> {
     return AppBar(
       title: BlocBuilder<SearchBloc, SearchState>(
         bloc: GetIt.I<SearchBloc>(),
+        buildWhen: (previous, current) => current is UpdateFindTMLogoState,
         builder: (context, state) {
-          if (state is HideFindTMLogoState) {
-            return const SearchTextField();
-          }
           debugPrint(state.toString());
-          return Text('FindTM', style: Theme.of(context).textTheme.titleLarge);
+          switch (state) {
+            case ShowTextFildForQueryState():
+              return const SearchTextField();
+            default:
+              return Text('FindTM',
+                  style: Theme.of(context).textTheme.titleLarge);
+          }
         },
       ),
       centerTitle: true,
       actions: [
         IconButton(
             onPressed: () {
-              if (GetIt.I<SearchBloc>().state is! HideFindTMLogoState) {
+              if (GetIt.I<SearchBloc>().state is ShowFindTMLogoState) {
                 GetIt.I<SearchBloc>()
                     .add(EnteringQueryEvent(isSearching: true));
               } else {

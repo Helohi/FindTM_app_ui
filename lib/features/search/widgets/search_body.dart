@@ -16,28 +16,33 @@ class _SearchBodyState extends State<SearchBody> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         GetIt.I<SearchBloc>().add(EnteringQueryEvent(isSearching: false));
       },
       child: BlocBuilder<SearchBloc, SearchState>(
           bloc: GetIt.I<SearchBloc>(),
+          buildWhen: (previous, current) => current is UpdateResultsListView,
           builder: (context, state) {
-            if (GetIt.I<GoogleResults>().results.isNotEmpty &&
-                state is! LoadingSearchResultsState) {
-              return ListView.separated(
-                separatorBuilder: (context, index) =>
-                    const Divider(thickness: 2, color: Colors.brown),
-                itemCount: GetIt.I<GoogleResults>().results.length,
-                itemBuilder: (context, index) {
-                  return ResultListTile(
-                    googleResult: GetIt.I<GoogleResults>().results[index],
-                  );
-                },
-              );
-            } else if (state is LoadingSearchResultsState) {
-              return const Center(child: CircularProgressIndicator());
+            switch (state.runtimeType) {
+              case LoadingSearchResultsState:
+                return const Center(child: CircularProgressIndicator());
+              case ShowResultsOfSearchSate:
+                return ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const Divider(thickness: 2, color: Colors.brown),
+                  itemCount: GetIt.I<GoogleResults>().results.length,
+                  itemBuilder: (context, index) {
+                    return ResultListTile(
+                      googleResult: GetIt.I<GoogleResults>().results[index],
+                    );
+                  },
+                );
+              case ExceptionSearchState:
+                return ErrorHappenedBody(state: state as ExceptionSearchState);
+              default:
+                return const HowToStartSearch();
             }
-            return const HowToStartSearch();
           }),
     );
   }

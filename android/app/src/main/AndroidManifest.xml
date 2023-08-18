@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="find_tm_app"
+        android:label="FindTM"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

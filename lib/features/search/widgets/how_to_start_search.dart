@@ -5,13 +5,16 @@ class HowToStartSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle =
+        Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 15);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('Tap', style: Theme.of(context).textTheme.bodySmall),
+        Text('Tap', style: textStyle),
         const Icon(Icons.search, color: Colors.grey, size: 30),
-        Text('to start search', style: Theme.of(context).textTheme.bodySmall),
+        Text('to start search', style: textStyle),
+        const Column(),
       ],
     );
   }
