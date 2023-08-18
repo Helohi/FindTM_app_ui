@@ -21,8 +21,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             .search(GetIt.I<QueryInputtedByUser>().text.toString());
         emit(ShowResultsOfSearchSate());
       } catch (e) {
-        emit(
-            ExceptionSearchState(errorDetails: "Server did not send response"));
+        emit(ExceptionSearchState(
+            errorDetails:
+                "Server did not send response.\nDetails: ${e.toString()}"));
       }
     });
   }

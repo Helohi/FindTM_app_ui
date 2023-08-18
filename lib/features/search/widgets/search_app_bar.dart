@@ -15,9 +15,11 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarState extends State<SearchAppBar> {
+  bool _isSearching = false;
+
   @override
   void initState() {
-    GetIt.I<SearchBloc>().add(EnteringQueryEvent(isSearching: false));
+    GetIt.I<SearchBloc>().add(EnteringQueryEvent(isSearching: _isSearching));
     super.initState();
   }
 
@@ -31,8 +33,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
           debugPrint(state.toString());
           switch (state) {
             case ShowTextFildForQueryState():
+              _isSearching = true;
               return const SearchTextField();
             default:
+              _isSearching = false;
               return Text('FindTM',
                   style: Theme.of(context).textTheme.titleLarge);
           }
@@ -42,11 +46,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
       actions: [
         IconButton(
             onPressed: () {
-              if (GetIt.I<SearchBloc>().state is ShowFindTMLogoState) {
+              if (_isSearching) {
+                GetIt.I<SearchBloc>().add(SearchHappendEvent());
+              } else {
                 GetIt.I<SearchBloc>()
                     .add(EnteringQueryEvent(isSearching: true));
-              } else {
-                GetIt.I<SearchBloc>().add(SearchHappendEvent());
               }
             },
             icon: const Icon(Icons.search))

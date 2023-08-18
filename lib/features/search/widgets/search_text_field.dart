@@ -1,3 +1,4 @@
+import 'package:find_tm_app/features/search/bloc/search_bloc.dart';
 import 'package:find_tm_app/features/search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -14,6 +15,9 @@ class SearchTextField extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
+        onSubmitted: (value) {
+          GetIt.I<SearchBloc>().add(SearchHappendEvent());
+        },
         controller: GetIt.I<QueryInputtedByUser>(),
         autofocus: true,
         cursorColor: Colors.black,
