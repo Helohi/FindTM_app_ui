@@ -4,10 +4,22 @@ abstract class SearchState {}
 
 class SearchInitial implements SearchState {}
 
-class HideFindTMLogoState implements SearchState {}
+// FindTM logo
+abstract class UpdateFindTMLogoState implements SearchState {}
 
-class ShowFindTMLogoState implements SearchState {}
+class ShowTextFildForQueryState implements UpdateFindTMLogoState {}
 
-class ShowResultsOfSearchSate implements SearchState {}
+class ShowFindTMLogoState implements UpdateFindTMLogoState {}
 
-class LoadingSearchResultsState implements SearchState {}
+// Searching states
+abstract class UpdateResultsListView implements SearchState {}
+
+class LoadingSearchResultsState implements UpdateResultsListView {}
+
+class ShowResultsOfSearchSate implements UpdateResultsListView {}
+
+class ExceptionSearchState implements UpdateResultsListView {
+  ExceptionSearchState({this.errorDetails});
+
+  final String? errorDetails;
+}

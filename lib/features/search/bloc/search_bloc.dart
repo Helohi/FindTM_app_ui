@@ -10,15 +10,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
     on<EnteringQueryEvent>((event, emit) {
       event.isSearching
-          ? emit(HideFindTMLogoState())
+          ? emit(ShowTextFildForQueryState())
           : emit(ShowFindTMLogoState());
     });
 
     on<SearchHappendEvent>((event, emit) async {
       emit(LoadingSearchResultsState());
-      GetIt.I<GoogleResults>().results = await GetIt.I<GoogleSearchService>()
-          .search(GetIt.I<QueryInputtedByUser>().text.toString());
-      emit(ShowResultsOfSearchSate());
+      try {
+        GetIt.I<GoogleResults>().results = await GetIt.I<GoogleSearchService>()
+            .search(GetIt.I<QueryInputtedByUser>().text.toString());
+        emit(ShowResultsOfSearchSate());
+      } catch (e) {
+        emit(
+            ExceptionSearchState(errorDetails: "Server did not send response"));
+      }
     });
   }
 }
