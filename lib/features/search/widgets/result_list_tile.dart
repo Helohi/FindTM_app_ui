@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:find_tm_app/services/google_search/google_result.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ResultListTile extends StatelessWidget {
@@ -18,32 +19,31 @@ class ResultListTile extends StatelessWidget {
       if ([200, 301, 302, 307, 308].contains(response.statusCode)) {
         isOpen = true;
       } else {
-        isOpen = false;
+        isOpen = null;
       }
       responseCode = response.statusCode.toString();
     } catch (e) {
       responseCode = e.toString();
-      isOpen = null;
+      isOpen = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: () async {
+        await Clipboard.setData(ClipboardData(text: googleResult.url));
+        if (context.mounted) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Url copied')));
+        }
+      },
       onTap: () async {
         final url = googleResult.url;
-        if (await canLaunchUrlString(url)) {
-          await launchUrlString(
-            url,
-            mode: LaunchMode.externalApplication,
-          );
-        } else if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Can\'t open url'),
-            ),
-          );
-        }
+        await launchUrlString(
+          url,
+          mode: LaunchMode.externalApplication,
+        );
       },
       title: Text(googleResult.title),
       titleTextStyle: Theme.of(context).textTheme.bodyLarge,

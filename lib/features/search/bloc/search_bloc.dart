@@ -18,7 +18,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(LoadingSearchResultsState());
       try {
         GetIt.I<GoogleResults>().results = await GetIt.I<GoogleSearchService>()
-            .search(GetIt.I<QueryInputtedByUser>().text.toString());
+            .search(GetIt.I<QueryInputtedByUser>().text.toString(),
+                numberOfResults: 20);
         emit(ShowResultsOfSearchSate());
       } catch (e) {
         emit(ExceptionSearchState(

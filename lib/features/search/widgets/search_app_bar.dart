@@ -1,4 +1,5 @@
 import 'package:find_tm_app/features/search/bloc/search_bloc.dart';
+import 'package:find_tm_app/features/search/search.dart';
 import 'package:find_tm_app/features/search/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _SearchAppBarState extends State<SearchAppBar> {
   bool _isSearching = false;
+  String lastSearch = '';
 
   @override
   void initState() {
@@ -47,7 +49,17 @@ class _SearchAppBarState extends State<SearchAppBar> {
         IconButton(
             onPressed: () {
               if (_isSearching) {
-                GetIt.I<SearchBloc>().add(SearchHappendEvent());
+                if (GetIt.I<QueryInputtedByUser>().text.toString() !=
+                    lastSearch) {
+                  lastSearch = GetIt.I<QueryInputtedByUser>().text.toString();
+                  GetIt.I<SearchBloc>().add(SearchHappendEvent());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please change search query'),
+                    ),
+                  );
+                }
               } else {
                 GetIt.I<SearchBloc>()
                     .add(EnteringQueryEvent(isSearching: true));
