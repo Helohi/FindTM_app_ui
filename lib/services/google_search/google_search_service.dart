@@ -7,8 +7,8 @@ class GoogleSearchService implements GoogleSearchProvider {
 
   final GoogleSearchProvider _provider;
 
-  factory GoogleSearchService.pythonanywhere() =>
-      GoogleSearchService(PythonanywhereProvider());
+  factory GoogleSearchService.pythonanywhere(mode) =>
+      GoogleSearchService(PythonanywhereProvider(mode: mode));
 
   @override
   Future<bool> handShake() => _provider.handShake();

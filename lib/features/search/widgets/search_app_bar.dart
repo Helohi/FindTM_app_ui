@@ -1,4 +1,5 @@
 import 'package:find_tm_app/features/search/bloc/search_bloc.dart';
+import 'package:find_tm_app/features/search/search.dart';
 import 'package:find_tm_app/features/search/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,9 +16,12 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarState extends State<SearchAppBar> {
+  bool _isSearching = false;
+  String lastSearch = '';
+
   @override
   void initState() {
-    GetIt.I<SearchBloc>().add(EnteringQueryEvent(isSearching: false));
+    GetIt.I<SearchBloc>().add(EnteringQueryEvent(isSearching: _isSearching));
     super.initState();
   }
 
@@ -31,8 +35,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
           debugPrint(state.toString());
           switch (state) {
             case ShowTextFildForQueryState():
+              _isSearching = true;
               return const SearchTextField();
             default:
+              _isSearching = false;
               return Text('FindTM',
                   style: Theme.of(context).textTheme.titleLarge);
           }
@@ -42,11 +48,21 @@ class _SearchAppBarState extends State<SearchAppBar> {
       actions: [
         IconButton(
             onPressed: () {
-              if (GetIt.I<SearchBloc>().state is ShowFindTMLogoState) {
+              if (_isSearching) {
+                if (GetIt.I<QueryInputtedByUser>().text.toString() !=
+                    lastSearch) {
+                  lastSearch = GetIt.I<QueryInputtedByUser>().text.toString();
+                  GetIt.I<SearchBloc>().add(SearchHappendEvent());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please change search query'),
+                    ),
+                  );
+                }
+              } else {
                 GetIt.I<SearchBloc>()
                     .add(EnteringQueryEvent(isSearching: true));
-              } else {
-                GetIt.I<SearchBloc>().add(SearchHappendEvent());
               }
             },
             icon: const Icon(Icons.search))
