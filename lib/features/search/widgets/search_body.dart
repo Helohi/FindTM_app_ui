@@ -29,6 +29,7 @@ class _SearchBodyState extends State<SearchBody> {
                 return const Center(child: CircularProgressIndicator());
               case ShowResultsOfSearchSate:
                 return ListView.separated(
+                  addAutomaticKeepAlives: true,
                   separatorBuilder: (context, index) =>
                       const Divider(thickness: 2, color: Colors.brown),
                   itemCount: GetIt.I<GoogleResults>().results.length,
