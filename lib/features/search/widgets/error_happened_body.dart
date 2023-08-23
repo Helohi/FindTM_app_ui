@@ -20,21 +20,28 @@ class ErrorHappenedBody extends StatelessWidget {
               'Error: ${state.errorDetails}',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            ElevatedButton.icon(
-              onPressed: () => GetIt.I<SearchBloc>().add(SearchHappendEvent()),
-              icon: const Icon(Icons.replay),
-              label: Text('Try again',
-                  style: Theme.of(context).textTheme.bodyLarge),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: ElevatedButton.icon(
+                onPressed: () =>
+                    GetIt.I<SearchBloc>().add(SearchHappendEvent()),
+                icon: const Icon(Icons.replay),
+                label: Text('Try again',
+                    style: Theme.of(context).textTheme.bodyLarge),
+              ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  GetIt.I.registerSingleton(
-                    GoogleSearchService.pythonanywhere(
-                        PythonAnywhereModes.withCurlhubProxy),
-                  );
-                  GetIt.I<SearchBloc>().add(SearchHappendEvent());
-                },
-                child: const Text('Activate proxy'))
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: ElevatedButton(
+                  onPressed: () {
+                    GetIt.I.registerSingleton(
+                      GoogleSearchService.pythonanywhere(
+                          PythonAnywhereModes.withCurlhubProxy),
+                    );
+                    GetIt.I<SearchBloc>().add(SearchHappendEvent());
+                  },
+                  child: const Text('Activate proxy')),
+            )
           ],
         ),
       ),
