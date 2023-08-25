@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:find_tm_app/services/google_search/google_result.dart';
+import 'package:find_tm_app/services/search_service/search_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -8,7 +8,7 @@ class ResultListTile extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
   ResultListTile({super.key, required this.googleResult});
 
-  final GoogleResult googleResult;
+  final SearchResult googleResult;
 
   @override
   State<ResultListTile> createState() => _ResultListTileState();

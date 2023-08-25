@@ -1,0 +1,1 @@
+enum PythonAnywhereModes { normal, withCurlhubProxy }

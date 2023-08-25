@@ -1,6 +1,5 @@
 import 'package:find_tm_app/features/search/bloc/search_bloc.dart';
-import 'package:find_tm_app/services/google_search/google_search_service.dart';
-import 'package:find_tm_app/services/google_search/pythonanywhere_provider.dart';
+import 'package:find_tm_app/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -35,7 +34,7 @@ class ErrorHappenedBody extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {
                     GetIt.I.registerSingleton(
-                      GoogleSearchService.pythonanywhere(
+                      SearchService.pythonanywhere(
                           PythonAnywhereModes.withCurlhubProxy),
                     );
                     GetIt.I<SearchBloc>().add(SearchHappendEvent());

@@ -1,5 +1,5 @@
 import 'package:find_tm_app/features/search/search.dart';
-import 'package:find_tm_app/services/google_search/google_search_service.dart';
+import 'package:find_tm_app/services/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -17,7 +17,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchHappendEvent>((event, emit) async {
       emit(LoadingSearchResultsState());
       try {
-        GetIt.I<GoogleResults>().results = await GetIt.I<GoogleSearchService>()
+        GetIt.I<GoogleResults>().results = await GetIt.I<SearchService>()
             .search(GetIt.I<QueryInputtedByUser>().text.toString(),
                 numberOfResults: 20);
         emit(ShowResultsOfSearchSate());

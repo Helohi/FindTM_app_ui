@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:find_tm_app/services/google_search/exeptions.dart';
-import 'package:find_tm_app/services/google_search/google_result.dart';
-import 'package:find_tm_app/services/google_search/google_search_provider.dart';
+import 'package:find_tm_app/services/search_service/exeptions.dart';
+import 'package:find_tm_app/services/search_service/pythonanywhere_providers/pythonanywhere_modes.dart';
+import 'package:find_tm_app/services/search_service/search_result.dart';
+import 'package:find_tm_app/services/search_service/search_provider.dart';
 import 'dart:convert' show jsonDecode;
 
-enum PythonAnywhereModes { normal, withCurlhubProxy }
-
-class PythonanywhereProvider implements GoogleSearchProvider {
-  PythonanywhereProvider({required this.mode}) {
+class PythonanywhereGoogleProvider implements SearchProvider {
+  PythonanywhereGoogleProvider({required this.mode}) {
     switch (mode) {
       case PythonAnywhereModes.withCurlhubProxy:
         _baseUrl = 'https://findtm-pythonanywhere-com-nphllvybqwfl.curlhub.io';
@@ -25,7 +24,7 @@ class PythonanywhereProvider implements GoogleSearchProvider {
     try {
       final response = await Dio().get('$_baseUrl/');
       final data = jsonDecode(response.data.toString());
-      if (data['server_works'] && data['google_search_works']) {
+      if (data['server_works'] && data['googlesearch_python']) {
         return true;
       } else {
         return false;
@@ -36,7 +35,7 @@ class PythonanywhereProvider implements GoogleSearchProvider {
   }
 
   @override
-  Future<List<GoogleResult>> search(String query,
+  Future<List<SearchResult>> search(String query,
       {int? numberOfResults}) async {
     final searchUriToApi = Uri.tryParse(numberOfResults == null
         ? '$_baseUrl/google/$query'
@@ -45,7 +44,7 @@ class PythonanywhereProvider implements GoogleSearchProvider {
       final response = await Dio().getUri(searchUriToApi);
       final data = response.data as List;
       return data
-          .map((e) => GoogleResult(
+          .map((e) => SearchResult(
                 url: e['url'],
                 title: e['title'],
                 description: e['description'],

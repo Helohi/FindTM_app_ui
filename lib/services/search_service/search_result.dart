@@ -1,5 +1,5 @@
-class GoogleResult {
-  GoogleResult({
+class SearchResult {
+  SearchResult({
     required this.url,
     required this.title,
     required this.description,
