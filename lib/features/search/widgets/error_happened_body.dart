@@ -1,5 +1,4 @@
 import 'package:find_tm_app/features/search/bloc/search_bloc.dart';
-import 'package:find_tm_app/services/search_service/search_provider.dart';
 import 'package:find_tm_app/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
