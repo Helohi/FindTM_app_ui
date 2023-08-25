@@ -32,10 +32,10 @@ class _SearchBodyState extends State<SearchBody> {
                   addAutomaticKeepAlives: true,
                   separatorBuilder: (context, index) =>
                       const Divider(thickness: 2, color: Colors.brown),
-                  itemCount: GetIt.I<GoogleResults>().results.length,
+                  itemCount: GetIt.I<SearchResults>().results.length,
                   itemBuilder: (context, index) {
                     return ResultListTile(
-                      googleResult: GetIt.I<GoogleResults>().results[index],
+                      googleResult: GetIt.I<SearchResults>().results[index],
                     );
                   },
                 );

@@ -18,9 +18,9 @@ class _SearchScreenState extends State<SearchScreen> {
     GetIt.I.registerSingleton(QueryInputtedByUser());
     GetIt.I.registerSingleton(SearchBloc());
     GetIt.I.registerSingleton(
-      SearchService.pythonanywhere(PythonAnywhereModes.normal),
+      SearchService.pythonanywhereGoogle(),
     );
-    GetIt.I.registerSingleton(GoogleResults());
+    GetIt.I.registerSingleton(SearchResults());
     super.initState();
   }
 
@@ -35,6 +35,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
 class QueryInputtedByUser extends TextEditingController {}
 
-class GoogleResults {
+class SearchResults {
   var results = [];
 }

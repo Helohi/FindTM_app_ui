@@ -17,7 +17,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchHappendEvent>((event, emit) async {
       emit(LoadingSearchResultsState());
       try {
-        GetIt.I<GoogleResults>().results = await GetIt.I<SearchService>()
+        GetIt.I<SearchResults>().results = await GetIt.I<SearchService>()
             .search(GetIt.I<QueryInputtedByUser>().text.toString(),
                 numberOfResults: 20);
         emit(ShowResultsOfSearchSate());
