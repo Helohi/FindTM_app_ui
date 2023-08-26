@@ -18,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
     GetIt.I.registerSingleton(QueryInputtedByUser());
     GetIt.I.registerSingleton(SearchBloc());
     GetIt.I.registerSingleton(
-      SearchService.pythonanywhereGoogle(),
+      SearchService.pythonanywhereDdg(),
     );
     GetIt.I.registerSingleton(SearchResults());
     super.initState();
