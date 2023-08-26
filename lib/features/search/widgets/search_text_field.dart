@@ -16,6 +16,9 @@ class SearchTextField extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
+        onTap: () => GetIt.I<QueryInputtedByUser>().selection = TextSelection(
+            baseOffset: 0,
+            extentOffset: GetIt.I<QueryInputtedByUser>().value.text.length),
         onSubmitted: (value) {
           GetIt.I<SearchBloc>().add(SearchHappendEvent());
         },
