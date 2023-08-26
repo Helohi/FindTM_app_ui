@@ -54,4 +54,7 @@ class PythonanywhereGoogleProvider implements SearchProvider {
       throw EnableToParseQuery();
     }
   }
+
+  @override
+  String get name => 'Google';
 }

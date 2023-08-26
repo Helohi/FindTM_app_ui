@@ -53,4 +53,7 @@ class PythonAnywhereDdgProvider implements SearchProvider {
       throw EnableToParseQuery();
     }
   }
+
+  @override
+  String get name => "DuckDuckGo";
 }

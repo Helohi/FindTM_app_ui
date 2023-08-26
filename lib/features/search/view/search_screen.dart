@@ -14,6 +14,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
+    GetIt.I.allowReassignment = true;
     GetIt.I.registerSingleton(QueryInputtedByUser());
     GetIt.I.registerSingleton(SearchBloc());
     GetIt.I.registerSingleton(

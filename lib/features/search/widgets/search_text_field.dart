@@ -1,5 +1,6 @@
 import 'package:find_tm_app/features/search/bloc/search_bloc.dart';
 import 'package:find_tm_app/features/search/search.dart';
+import 'package:find_tm_app/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -23,8 +24,11 @@ class SearchTextField extends StatelessWidget {
         cursorColor: Colors.black,
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Search',
-          hintStyle: Theme.of(context).textTheme.titleMedium,
+          hintText: 'Search in ${GetIt.I<SearchService>().name}',
+          hintStyle: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: Colors.grey[800]),
         ),
       ),
     );

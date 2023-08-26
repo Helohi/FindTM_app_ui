@@ -22,6 +22,9 @@ class SearchService implements SearchProvider {
   Future<bool> handShake() => _provider.handShake();
 
   @override
+  String get name => _provider.name;
+
+  @override
   Future<List<SearchResult>> search(String query, {int? numberOfResults}) =>
       _provider.search(query, numberOfResults: numberOfResults);
 
