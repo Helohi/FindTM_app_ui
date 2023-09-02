@@ -36,5 +36,5 @@ class _SearchScreenState extends State<SearchScreen> {
 class QueryInputtedByUser extends TextEditingController {}
 
 class SearchResults {
-  var results = [];
+  List<SearchResult> results = [];
 }

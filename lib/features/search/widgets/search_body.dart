@@ -34,7 +34,7 @@ class _SearchBodyState extends State<SearchBody> {
                       const Divider(thickness: 2, color: Colors.brown),
                   itemCount: GetIt.I<SearchResults>().results.length,
                   itemBuilder: (context, index) {
-                    return ResultListTile(
+                    return OneResultBuilder(
                       googleResult: GetIt.I<SearchResults>().results[index],
                     );
                   },
