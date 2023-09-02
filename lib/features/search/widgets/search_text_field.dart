@@ -15,24 +15,27 @@ class SearchTextField extends StatelessWidget {
         color: Colors.white,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: TextField(
-        onTap: () => GetIt.I<QueryInputtedByUser>().selection = TextSelection(
+      child: GestureDetector(
+        onDoubleTap: () =>
+            GetIt.I<QueryInputtedByUser>().selection = TextSelection(
           baseOffset: 0,
           extentOffset: GetIt.I<QueryInputtedByUser>().value.text.length,
         ),
-        onSubmitted: (value) {
-          GetIt.I<SearchBloc>().add(SearchHappendEvent());
-        },
-        controller: GetIt.I<QueryInputtedByUser>(),
-        autofocus: true,
-        cursorColor: Colors.black,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'Search in ${GetIt.I<SearchService>().name}',
-          hintStyle: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(color: Colors.grey[800]),
+        child: TextField(
+          onSubmitted: (value) {
+            GetIt.I<SearchBloc>().add(SearchHappendEvent());
+          },
+          controller: GetIt.I<QueryInputtedByUser>(),
+          autofocus: true,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: 'Search in ${GetIt.I<SearchService>().name}',
+            hintStyle: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: Colors.grey[800]),
+          ),
         ),
       ),
     );
