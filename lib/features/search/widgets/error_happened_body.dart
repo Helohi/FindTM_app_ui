@@ -23,18 +23,21 @@ class ErrorHappenedBody extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () => GetIt.I<SearchBloc>().add(SearchHappendEvent()),
               icon: const Icon(Icons.replay),
-              label: Text('Try again',
-                  style: Theme.of(context).textTheme.bodyLarge),
+              label: const Text(
+                'Try again',
+              ),
             ),
             ElevatedButton(
-                onPressed: () {
-                  GetIt.I.registerSingleton(
-                    GoogleSearchService.pythonanywhere(
-                        PythonAnywhereModes.withCurlhubProxy),
-                  );
-                  GetIt.I<SearchBloc>().add(SearchHappendEvent());
-                },
-                child: const Text('Activate proxy'))
+              onPressed: () {
+                GetIt.I.registerSingleton(
+                  GoogleSearchService.pythonanywhere(
+                    PythonAnywhereModes.withCurlhubProxy,
+                  ),
+                );
+                GetIt.I<SearchBloc>().add(SearchHappendEvent());
+              },
+              child: const Text('Activate proxy'),
+            )
           ],
         ),
       ),

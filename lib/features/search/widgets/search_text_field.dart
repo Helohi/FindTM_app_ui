@@ -13,11 +13,12 @@ class SearchTextField extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(20)),
         color: Colors.white,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: TextField(
         onSubmitted: (value) {
           GetIt.I<SearchBloc>().add(SearchHappendEvent());
         },
+        style: Theme.of(context).textTheme.titleMedium,
         controller: GetIt.I<QueryInputtedByUser>(),
         autofocus: true,
         cursorColor: Colors.black,
